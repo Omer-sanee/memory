@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our 30 Days ❤️</title>
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    background: linear-gradient(160deg, #1a0b2e 0%, #2d1b4e 40%, #4c1d95 100%);
+    font-family: 'Segoe UI', 'Georgia', serif;
+    color: #ede9fe;
+    padding: 30px 16px 60px;
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
+  }
+
+  /* floating hearts */
+  .heart {
+    position: fixed;
+    color: rgba(196, 181, 253, 0.15);
+    font-size: 18px;
+    pointer-events: none;
+    animation: floatHeart linear infinite;
+    z-index: 0;
+  }
+
+  @keyframes floatHeart {
+    0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    20%  { opacity: 1; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+  }
+
+  .app {
+    width: 100%;
+    max-width: 520px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---------- header ---------- */
+  .header {
+    text-align: center;
+    margin-bottom: 30px;
+    animation: fadeDown 1s ease;
+  }
+
+  .header h1 {
+    font-size: 1.9rem;
+    font-weight: 400;
+    letter-spacing: 6px;
+    color: #e9d5ff;
+    text-transform: uppercase;
+    text-shadow: 0 0 40px rgba(196, 181, 253, 0.5);
+  }
+
+  .header .heart-icon {
+    font-size: 1.6rem;
+    display: block;
+    margin-top: 8px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.2); }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---------- state screens ---------- */
+  .state-screen {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(196, 181, 253, 0.15);
+    border-radius: 30px;
+    padding: 50px 28px;
+    backdrop-filter: blur(12px);
+    animation: fadeUp 0.8s ease;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+  }
+
+  .state-screen .icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .state-screen h2 {
+    font-size: 1.3rem;
+    font-weight: 400;
+    letter-spacing: 2px;
+    color: #e9d5ff;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+
+  .state-screen p {
+    font-size: 0.95rem;
+    color: #b8aede;
+    line-height: 1.8;
+  }
+
+  /* ---------- countdown ---------- */
+  .countdown {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(196, 181, 253, 0.18);
+    border-radius: 28px;
+    padding: 28px 24px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    margin-bottom: 26px;
+    animation: fadeUp 0.8s ease;
+  }
+
+  .day-badge {
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    color: #c4b5fd;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .timer {
+    font-size: 2.4rem;
+    font-weight: 300;
+    letter-spacing: 3px;
+    color: #f5f3ff;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 30px rgba(196, 181, 253, 0.5);
+  }
+
+  .timer-label {
+    font-size: 0.72rem;
+    color: #8b7fb8;
+    letter-spacing: 3px;
+    margin-top: 8px;
+    text-transform: uppercase;
+  }
+
+  .days-left {
+    margin-top: 18px;
+    font-size: 1rem;
+    color: #e9d5ff;
+    letter-spacing: 1px;
+  }
+
+  .progress-track {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    margin-top: 16px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #a78bfa, #f0abfc);
+    border-radius: 20px;
+    transition: width 0.8s ease;
+    box-shadow: 0 0 16px rgba(196, 181, 253, 0.7);
+  }
+
+  /* ---------- memory card ---------- */
+  .memory-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(196, 181, 253, 0.18);
+    border-radius: 28px;
+    padding: 34px 28px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+    animation: fadeUp 0.8s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .memory-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #c4b5fd, transparent);
+    opacity: 0.6;
+  }
+
+  .memory-num {
+    font-size: 0.72rem;
+    letter-spacing: 4px;
+    color: #c4b5fd;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .memory-title {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #f5f3ff;
+    line-height: 1.4;
+    margin-bottom: 20px;
+    letter-spacing: 0.3px;
+    font-family: 'Georgia', serif;
+    font-style: italic;
+  }
+
+  .memory-divider {
+    width: 50px;
+    height: 1px;
+    background: rgba(196, 181, 253, 0.4);
+    margin-bottom: 20px;
+  }
+
+  .memory-message {
+    font-size: 1.02rem;
+    color: #d8d0f0;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    font-weight: 350;
+    letter-spacing: 0.2px;
+  }
+
+  /* ---------- nav (browse previous days) ---------- */
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    gap: 10px;
+  }
+
+  .nav-btn {
+    flex: 1;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(196, 181, 253, 0.2);
+    border-radius: 16px;
+    color: #c4b5fd;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.25s ease;
+    letter-spacing: 0.5px;
+  }
+
+  .nav-btn:hover:not(:disabled) {
+    background: rgba(196, 181, 253, 0.12);
+    border-color: rgba(196, 181, 253, 0.4);
+  }
+
+  .nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .nav-info {
+    font-size: 0.78rem;
+    color: #8b7fb8;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+
+  /* ---------- final message ---------- */
+  .final-screen {
+    text-align: center;
+    background: linear-gradient(160deg, rgba(124, 58, 237, 0.15), rgba(240, 171, 252, 0.08));
+    border: 1px solid rgba(196, 181, 253, 0.3);
+    border-radius: 30px;
+    padding: 50px 28px;
+    backdrop-filter: blur(12px);
+    animation: fadeUp 0.8s ease;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+  }
+
+  .final-screen .icon {
+    font-size: 3.5rem;
+    display: block;
+    margin-bottom: 20px;
+    animation: pulse 2.5s ease-in-out infinite;
+  }
+
+  .final-screen h2 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: 4px;
+    color: #e9d5ff;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+
+  .final-screen p {
+    font-size: 1.05rem;
+    color: #d8d0f0;
+    line-height: 1.9;
+    white-space: pre-wrap;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 460px) {
+    .header h1 { font-size: 1.4rem; letter-spacing: 4px; }
+    .timer { font-size: 1.9rem; }
+    .memory-title { font-size: 1.25rem; }
+    .memory-message { font-size: 0.95rem; }
+    .state-screen, .memory-card, .final-screen { padding: 30px 20px; }
+  }
+</style>
+</head>
+
+<body>
+<div class="app">
+
+  <div class="header">
+    <h1>Our 30 Days</h1>
+    <span class="heart-icon">❤️</span>
+  </div>
+
+  <!-- ===== SCREEN 1: BEFORE START ===== -->
+  <div class="state-screen" id="screenBefore" style="display:none;">
+    <span class="icon">🔒</span>
+    <h2>The vault hasn't opened yet</h2>
+    <p>Come back on <strong id="startDateText"></strong>.<br>Something is waiting for you.</p>
+  </div>
+
+  <!-- ===== SCREEN 2: COUNTDOWN ===== -->
+  <div id="screenCountdown" style="display:none;">
+    <div class="countdown">
+      <div class="day-badge" id="dayBadge">DAY 0 / 30</div>
+      <div class="timer" id="timer">00 : 00 : 00</div>
+      <div class="timer-label">days · hours · minutes</div>
+      <div class="days-left" id="daysLeft">—</div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+  </div>
+
+  <!-- ===== SCREEN 3: MEMORY ===== -->
+  <div id="screenMemory" style="display:none;">
+    <div class="memory-card">
+      <span class="memory-num" id="memNum">MEMORY #01</span>
+      <div class="memory-title" id="memTitle">—</div>
+      <div class="memory-divider"></div>
+      <div class="memory-message" id="memMessage">—</div>
+    </div>
+
+    <div class="nav">
+      <button class="nav-btn" id="prevBtn">← Previous</button>
+      <span class="nav-info" id="navInfo">1 / 30</span>
+      <button class="nav-btn" id="nextBtn">Next →</button>
+    </div>
+  </div>
+
+  <!-- ===== SCREEN 4: FINAL ===== -->
+  <div class="final-screen" id="screenFinal" style="display:none;">
+    <span class="icon">🕊️</span>
+    <h2>30 Days Complete</h2>
+    <p id="finalMessage"></p>
+  </div>
+
+</div>
+
+<script>
+/* ============================================================
+   ⚙️  CONFIGURATION — EDIT THIS PART
+   ============================================================ */
+
+// When the 30 days begin (and end)
+const START_DATE = new Date("2026-10-01T00:00:00");
+const END_DATE   = new Date("2026-10-31T00:00:00");
+
+// Final message shown after Day 30
+const FINAL_MESSAGE =
+`This chapter has reached its final day.
+
+Thank you for every memory.
+Some things don't need to last forever
+to mean everything. ❤️`;
+
+/* ------------------------------------------------------------
+   📝 YOUR 30 MEMORIES — PASTE THEM HERE
+   ------------------------------------------------------------
+   Each memory needs:
+     day     → number (1 to 30)
+     title   → short title
+     message → the full message for that day
+   ------------------------------------------------------------ */
+
+const MEMORIES = [
+  {
+    day: 1,
+    title: "The beginning",
+    message: `Write your day 1 message here.
+
+This is where it all starts.`
+  },
+  {
+    day: 2,
+    title: "A little memory",
+    message: `Write your day 2 message here.`
+  },
+  {
+    day: 3,
+    title: "Day 3",
+    message: `Write your day 3 message here.`
+  },
+  {
+    day: 4,
+    title: "Day 4",
+    message: `Write your day 4 message here.`
+  },
+  {
+    day: 5,
+    title: "Day 5",
+    message: `Write your day 5 message here.`
+  },
+  {
+    day: 6,
+    title: "Day 6",
+    message: `Write your day 6 message here.`
+  },
+  {
+    day: 7,
+    title: "Day 7",
+    message: `Write your day 7 message here.`
+  },
+  {
+    day: 8,
+    title: "Day 8",
+    message: `Write your day 8 message here.`
+  },
+  {
+    day: 9,
+    title: "Day 9",
+    message: `Write your day 9 message here.`
+  },
+  {
+    day: 10,
+    title: "Day 10",
+    message: `Write your day 10 message here.`
+  },
+  {
+    day: 11,
+    title: "Day 11",
+    message: `Write your day 11 message here.`
+  },
+  {
+    day: 12,
+    title: "Day 12",
+    message: `Write your day 12 message here.`
+  },
+  {
+    day: 13,
+    title: "Day 13",
+    message: `Write your day 13 message here.`
+  },
+  {
+    day: 14,
+    title: "Day 14",
+    message: `Write your day 14 message here.`
+  },
+  {
+    day: 15,
+    title: "Day 15",
+    message: `Write your day 15 message here.`
+  },
+  {
+    day: 16,
+    title: "Day 16",
+    message: `Write your day 16 message here.`
+  },
+  {
+    day: 17,
+    title: "Day 17",
+    message: `Write your day 17 message here.`
+  },
+  {
+    day: 18,
+    title: "Day 18",
+    message: `Write your day 18 message here.`
+  },
+  {
+    day: 19,
+    title: "Day 19",
+    message: `Write your day 19 message here.`
+  },
+  {
+    day: 20,
+    title: "Day 20",
+    message: `Write your day 20 message here.`
+  },
+  {
+    day: 21,
+    title: "Day 21",
+    message: `Write your day 21 message here.`
+  },
+  {
+    day: 22,
+    title: "Day 22",
+    message: `Write your day 22 message here.`
+  },
+  {
+    day: 23,
+    title: "Day 23",
+    message: `Write your day 23 message here.`
+  },
+  {
+    day: 24,
+    title: "Day 24",
+    message: `Write your day 24 message here.`
+  },
+  {
+    day: 25,
+    title: "Day 25",
+    message: `Write your day 25 message here.`
+  },
+  {
+    day: 26,
+    title: "Day 26",
+    message: `Write your day 26 message here.`
+  },
+  {
+    day: 27,
+    title: "Day 27",
+    message: `Write your day 27 message here.`
+  },
+  {
+    day: 28,
+    title: "Day 28",
+    message: `Write your day 28 message here.`
+  },
+  {
+    day: 29,
+    title: "Day 29",
+    message: `Write your day 29 message here.`
+  },
+  {
+    day: 30,
+    title: "Day 30",
+    message: `Write your day 30 message here.
+
+The last one. ❤️`
+  }
+];
+
+/* ============================================================
+   🧠  LOGIC — NO NEED TO EDIT BELOW THIS LINE
+   ============================================================ */
+
+(function () {
+  // sort memories by day
+  MEMORIES.sort((a, b) => a.day - b.day);
+
+  // ---- DOM ----
+  const screenBefore    = document.getElementById('screenBefore');
+  const screenCountdown = document.getElementById('screenCountdown');
+  const screenMemory    = document.getElementById('screenMemory');
+  const screenFinal     = document.getElementById('screenFinal');
+
+  const startDateText = document.getElementById('startDateText');
+  const dayBadge      = document.getElementById('dayBadge');
+  const timerEl       = document.getElementById('timer');
+  const daysLeftEl    = document.getElementById('daysLeft');
+  const progressFill  = document.getElementById('progressFill');
+
+  const memNum     = document.getElementById('memNum');
+  const memTitle   = document.getElementById('memTitle');
+  const memMessage = document.getElementById('memMessage');
+  const navInfo    = document.getElementById('navInfo');
+  const prevBtn    = document.getElementById('prevBtn');
+  const nextBtn    = document.getElementById('nextBtn');
+
+  const finalMessage = document.getElementById('finalMessage');
+
+  // current day being viewed (defaults to today's day)
+  let viewingDay = null;
+
+  // ---- formatting ----
+  startDateText.textContent = START_DATE.toLocaleDateString(undefined, {
+    month: 'long', day: 'numeric', year: 'numeric'
+  });
+  finalMessage.textContent = FINAL_MESSAGE;
+
+  // ---- determine "current day number" (1 to 30) ----
+  function getCurrentDay() {
+    const now = Date.now();
+    const start = START_DATE.getTime();
+    const end = END_DATE.getTime();
+
+    if (now < start) return null;   // not started
+    if (now >= end) return 31;      // finished
+
+    // day 1 = first 24h after start
+    const dayMs = 24 * 60 * 60 * 1000;
+    const dayNum = Math.floor((now - start) / dayMs) + 1;
+    return Math.min(30, dayNum);
+  }
+
+  // ---- show the right screen ----
+  function render() {
+    const day = getCurrentDay();
+
+    // Before start
+    if (day === null) {
+      showOnly(screenBefore);
+      return;
+    }
+
+    // After end
+    if (day > 30) {
+      showOnly(screenFinal);
+      return;
+    }
+
+    // During the 30 days
+    if (viewingDay === null || viewingDay < 1 || viewingDay > day) {
+      viewingDay = day; // default to today
+    }
+
+    showOnly(screenMemory);
+    screenCountdown.style.display = 'block'; // countdown always visible during active period
+
+    // countdown UI
+    updateCountdown(day);
+
+    // memory UI
+    updateMemory(viewingDay, day);
+  }
+
+  function showOnly(el) {
+    [screenBefore, screenCountdown, screenMemory, screenFinal].forEach(s => {
+      if (s !== el && s !== screenCountdown) s.style.display = 'none';
+    });
+    if (el !== screenCountdown) el.style.display = 'block';
+    if (el === screenBefore || el === screenFinal) {
+      screenCountdown.style.display = 'none';
+      screenMemory.style.display = 'none';
+    }
+    if (el === screenMemory) {
+      screenCountdown.style.display = 'block';
+      screenBefore.style.display = 'none';
+      screenFinal.style.display = 'none';
+    }
+    if (el === screenFinal) {
+      screenCountdown.style.display = 'none';
+      screenMemory.style.display = 'none';
+      screenBefore.style.display = 'none';
+      screenFinal.style.display = 'block';
+    }
+    if (el === screenBefore) {
+      screenBefore.style.display = 'block';
+      screenCountdown.style.display = 'none';
+      screenMemory.style.display = 'none';
+      screenFinal.style.display = 'none';
+    }
+  }
+
+  function updateCountdown(day) {
+    const now = Date.now();
+    const end = END_DATE.getTime();
+    const remaining = Math.max(0, end - now);
+
+    const totalSeconds = Math.floor(remaining / 1000);
+    const days    = Math.floor(totalSeconds / 86400);
+    const hours   = Math.floor((totalSeconds % 86400) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+
+    dayBadge.textContent = 'DAY ' + day + ' / 30';
+
+    timerEl.textContent =
+      String(days).padStart(2, '0') + ' : ' +
+      String(hours).padStart(2, '0') + ' : ' +
+      String(minutes).padStart(2, '0');
+
+    daysLeftEl.textContent = days + (days === 1 ? ' day remaining' : ' days remaining');
+
+    const total = END_DATE.getTime() - START_DATE.getTime();
+    const elapsed = now - START_DATE.getTime();
+    const pct = Math.min(100, Math.max(0, (elapsed / total) * 100));
+    progressFill.style.width = pct.toFixed(2) + '%';
+  }
+
+  function updateMemory(day, maxDay) {
+    const memory = MEMORIES.find(m => m.day === day) || {
+      day: day,
+      title: 'Day ' + day,
+      message: 'No memory written for this day yet.'
+    };
+
+    memNum.textContent = 'MEMORY #' + String(memory.day).padStart(2, '0');
+    memTitle.textContent = memory.title;
+    memMessage.textContent = memory.message;
+
+    navInfo.textContent = day + ' / ' + maxDay;
+
+    prevBtn.disabled = day <= 1;
+    nextBtn.disabled = day >= maxDay;
+  }
+
+  // ---- nav ----
+  prevBtn.addEventListener('click', () => {
+    const maxDay = getCurrentDay();
+    if (maxDay === null || maxDay > 30) return;
+    if (viewingDay > 1) {
+      viewingDay--;
+      render();
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    const maxDay = getCurrentDay();
+    if (maxDay === null || maxDay > 30) return;
+    if (viewingDay < maxDay) {
+      viewingDay++;
+      render();
+    }
+  });
+
+  // ---- floating hearts ----
+  function spawnHeart() {
+    const h = document.createElement('div');
+    h.className = 'heart';
+    h.textContent = ['❤️', '💜', '🤍', '✨'][Math.floor(Math.random() * 4)];
+    h.style.left = Math.random() * 100 + 'vw';
+    h.style.fontSize = (Math.random() * 14 + 12) + 'px';
+    h.style.animationDuration = (Math.random() * 10 + 10) + 's';
+    h.style.animationDelay = (Math.random() * 4) + 's';
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 22000);
+  }
+  setInterval(spawnHeart, 1400);
+  for (let i = 0; i < 6; i++) setTimeout(spawnHeart, i * 300);
+
+  // ---- tick ----
+  render();
+  setInterval(render, 1000);
+})();
+</script>
+</body>
+</html>
